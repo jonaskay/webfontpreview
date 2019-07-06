@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
-import WebFont from "webfontloader"
 import axios from "axios"
 
+import WebFont from "./web-font"
 import Family from "./family"
 import listStyles from "./list.module.css"
 
@@ -34,7 +34,7 @@ const List = ({ disabled, selected, onSelect }) => {
   }, [])
 
   useEffect(() => {
-    if (families.length > 0) {
+    if (families.length > 0 && typeof window !== "undefined") {
       WebFont.load({
         google: {
           families: families.slice(0, buffer),
