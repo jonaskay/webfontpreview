@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "webfontpreview",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Preview Google Fonts on a real website.",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "jonaskay <jonaskay@iki.fi>",
   "dependencies": {
     "axios": "^0.19.0",
     "gatsby": "^2.13.3",
@@ -39,9 +39,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/jonaskay/webfontpreview"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/jonaskay/webfontpreview/issues"
   }
 }
