@@ -1,0 +1,39 @@
+.transition {
+  transition: margin .2s;
+}
+
+.toggleEven {
+  animation: collapse-and-open-even .6s;
+}
+
+.toggleOdd {
+  animation: collapse-and-open-odd .6s;
+}
+
+@keyframes collapse-and-open-even {
+  0% {
+    @apply mr-0;
+  }
+
+  33%, 58% {
+    @apply -mr-64;
+  }
+
+  100% {
+    @apply mr-0;
+  }
+}
+
+@keyframes collapse-and-open-odd {
+  0% {
+    @apply mr-0;
+  }
+
+  33%, 58% {
+    @apply -mr-64;
+  }
+
+  100% {
+    @apply mr-0;
+  }
+}
