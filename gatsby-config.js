@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Web Font Preview`,
-    description: `Preview Google Fonts on a real website. Experiment with typefaces using templates instead of type speciments.`,
+    description: `Preview Google Fonts on a real website. Experiment with typefaces using templates instead of type specimens.`,
     author: `@webfontpreview`,
   },
   plugins: [
