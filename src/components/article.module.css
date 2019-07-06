@@ -1,0 +1,15 @@
+.h1 {
+  @apply text-5xl my-2 leading-tight;
+}
+
+.h2 {
+  @apply text-2xl mt-6 my-4;
+}
+
+.lead {
+  @apply text-xl my-4;
+}
+
+.p {
+  @apply my-4;
+}
