@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     title: `Web Font Preview`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    description: `Preview Google Fonts on a real website. Experiment with typefaces using templates instead of type speciments.`,
+    author: `@webfontpreview`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
