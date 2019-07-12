@@ -1,62 +1,48 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 
-import Option from "./option"
-import List from "./list"
+import Toggle from "./toggle"
+import Toolbar from "./toolbar"
+import Typography from "./typography"
 import settingsStyles from "./settings.module.css"
 
 const { toggleEven, toggleOdd, expand } = settingsStyles
 
 const Settings = ({ options }) => {
+  const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
   const [animation, setAnimation] = useState(null)
 
-  const renderOption = option => {
-    const { name } = option
-    const currentlySelected = name === selected
-
-    const newAnimation = () => {
+  const handleSelect = name => {
+    const nextAnimation = () => {
       if (animation === toggleEven) {
         return toggleOdd
       }
       return toggleEven
     }
 
-    const handleClick = () => {
-      if (currentlySelected) {
-        setSelected(null)
-      } else {
-        if (selected) {
-          setAnimation(newAnimation())
-        } else {
-          setAnimation(expand)
-        }
-        setSelected(name)
-      }
-    }
+    const isCurrentlySelected = name === selected
 
-    return (
-      <Option
-        key={name}
-        title={name}
-        value={option.value}
-        active={name === selected}
-        disabled={selected && name !== selected}
-        onClick={handleClick}
-      />
-    )
+    if (isCurrentlySelected) {
+      setSelected(null)
+    } else {
+      if (selected) {
+        setAnimation(nextAnimation())
+      } else {
+        setAnimation(expand)
+      }
+      setSelected(name)
+    }
   }
 
-  const renderList = option => (
-    <List
-      key={option.name}
-      disabled={selected && option.name !== selected}
-      selected={option.value}
-      onSelect={family => option.onChange(family)}
-    />
-  )
+  const toggleToolbar = () => {
+    if (open) {
+      setSelected(null)
+    }
+    setOpen(!open)
+  }
 
-  const defaultClassName = `flex h-full ${settingsStyles.transition}`
+  const defaultClassName = `fixed top-0 bottom-0 right-0 overflow-x-hidden flex items-start ${settingsStyles.transition}`
 
   return (
     <div
@@ -66,17 +52,24 @@ const Settings = ({ options }) => {
           : `${defaultClassName} -mr-64`
       }
     >
-      <div className="w-56 border-l">
-        {options.map(option => renderOption(option))}
-      </div>
-      <div className="w-64 relative">
-        {options.map(option => renderList(option))}
-      </div>
+      <Toggle open={open} onClick={toggleToolbar} />
+      <Toolbar
+        show={open}
+        options={options}
+        selected={selected}
+        onSelect={handleSelect}
+      />
+      <Typography
+        options={options}
+        selected={selected}
+        onClose={() => setSelected(null)}
+      />
     </div>
   )
 }
 
 Settings.propTypes = {
+  open: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

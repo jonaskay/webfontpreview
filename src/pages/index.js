@@ -19,7 +19,7 @@ const IndexPage = () => {
       onBodyFamilyChange={family => setBodyFamily(family)}
     >
       <SEO title="Preview Google Fonts" />
-      <div className="p-16">
+      <div className="p-6 md:p-16">
         <h1 className="text-4xl mb-3" style={{ fontFamily: headingFamily }}>
           Preview Google Fonts on a real website.
         </h1>

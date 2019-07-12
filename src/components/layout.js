@@ -20,10 +20,8 @@ const Layout = ({
   return (
     <>
       <Header />
-      <main>{children}</main>
-      <div className="fixed top-0 bottom-0 right-0 pt-16">
-        <Settings options={options} />
-      </div>
+      <main className="lg:max-w-2xl xl:max-w-full">{children}</main>
+      <Settings options={options} />
     </>
   )
 }

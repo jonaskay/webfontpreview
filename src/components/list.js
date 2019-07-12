@@ -8,7 +8,7 @@ import listStyles from "./list.module.css"
 
 const INITIAL_BUFFER = 20
 
-const List = ({ disabled, selected, onSelect }) => {
+const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const [families, setFamilies] = useState([])
   const [buffer, setBuffer] = useState(null)
 
@@ -58,7 +58,7 @@ const List = ({ disabled, selected, onSelect }) => {
   const defaultClassName = "absolute top-0 bottom-0 right-0 overflow-y-scroll"
 
   return (
-    <ol
+    <div
       className={
         disabled
           ? `${defaultClassName} w-0`
@@ -66,22 +66,35 @@ const List = ({ disabled, selected, onSelect }) => {
       }
       onScroll={handleScroll}
     >
-      {loadedFamilies().map(family => (
-        <Family
-          key={family}
-          name={family}
-          active={family === selected}
-          onClick={onSelect}
-        />
-      ))}
-    </ol>
+      <div className="block md:hidden sticky top-0 p-2 border-b bg-white font-bold">
+        {title}
+        <div
+          className="float-right cursor-pointer font-normal"
+          onClick={onClose}
+        >
+          Done
+        </div>
+      </div>
+      <ol>
+        {loadedFamilies().map(family => (
+          <Family
+            key={family}
+            name={family}
+            active={family === selected}
+            onClick={onSelect}
+          />
+        ))}
+      </ol>
+    </div>
   )
 }
 
 List.propTypes = {
+  title: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   selected: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default List

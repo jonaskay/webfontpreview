@@ -33,12 +33,10 @@ const PreviewPage = () => {
           Web Font Preview
         </Link>
       </div>
-      <main className="p-16 max-w-3xl">
+      <main className="p-6 md:p-16 max-w-3xl">
         <Article headingFamily={headingFamily} bodyFamily={bodyFamily} />
       </main>
-      <div className="fixed top-0 bottom-0 right-0">
-        <Settings options={options} />
-      </div>
+      <Settings options={options} />
     </>
   )
 }
