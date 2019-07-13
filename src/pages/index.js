@@ -3,9 +3,7 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
-const defaultHeadingFamily = "Roboto"
-const defaultBodyFamily = "Roboto Slab"
+import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
 const IndexPage = () => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)

@@ -4,10 +4,11 @@ import { Link } from "gatsby"
 import SEO from "../components/seo"
 import Article from "../components/article"
 import Settings from "../components/settings"
+import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
 const PreviewPage = () => {
-  const [headingFamily, setHeadingFamily] = useState(null)
-  const [bodyFamily, setBodyFamily] = useState(null)
+  const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
+  const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
 
   const options = [
     {
