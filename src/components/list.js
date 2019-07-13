@@ -55,7 +55,7 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
   }
 
   const loadedFamilies = () => families.slice(0, buffer)
-  const defaultClassName = "absolute top-0 bottom-0 right-0 overflow-y-scroll"
+  const defaultClassName = "absolute top-0 bottom-0 right-0"
 
   return (
     <div
@@ -66,16 +66,13 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
       }
       onScroll={handleScroll}
     >
-      <div className="block md:hidden sticky top-0 p-2 border-b bg-white font-bold">
-        {title}
-        <div
-          className="float-right cursor-pointer font-normal"
-          onClick={onClose}
-        >
+      <div className="flex items-center justify-between md:hidden absolute md:relative top-0 w-full h-12 overflow-hidden px-2 border-l border-b bg-white font-bold">
+        <div>{title}</div>
+        <div className="cursor-pointer font-normal" onClick={onClose}>
           Done
         </div>
       </div>
-      <ol>
+      <ol class="absolute top-0 bottom-0 w-full overflow-y-scroll mt-12 md:mt-0">
         {loadedFamilies().map(family => (
           <Family
             key={family}
