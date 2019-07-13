@@ -13,8 +13,8 @@ const Header = () => {
   `)
 
   return (
-    <header className="w-full h-16 p-4 flex items-center">
-      <h4 className="text-gray-600 font-bold text-xl">
+    <header className="p-4">
+      <h4 className="text-black font-bold text-md">
         {data.site.siteMetadata.title}
       </h4>
     </header>

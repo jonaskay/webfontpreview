@@ -35,11 +35,11 @@ const PreviewPage = ({ location }) => {
     <>
       <SEO title="Preview Google Fonts" />
       <div className={previewStyles.background}>
-        <div className="p-4">
+        <h4 className="p-4">
           <Link to="/" className="text-gray-600 hover:text-black font-bold">
             Web Font Preview
           </Link>
-        </div>
+        </h4>
         <main className="overflow-x-scroll">
           <TemplateComponent
             headingFamily={headingFamily}
