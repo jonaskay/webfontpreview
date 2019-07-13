@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 
 import SEO from "../components/seo"
@@ -7,16 +7,22 @@ import previewStyles from "./preview.module.css"
 import templates from "../templates"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
+const defaultTemplate = Object.keys(templates)[0]
+
 const PreviewPage = ({ location }) => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
+  const [template, setTemplate] = useState(defaultTemplate)
 
-  let TemplateComponent
-  if (location.state && location.state.template) {
-    TemplateComponent = templates[location.state.template].component
-  } else {
-    TemplateComponent = templates[Object.keys(templates)[0]].component
-  }
+  useEffect(() => {
+    if (location.state && location.state.template) {
+      setTemplate(location.state.template)
+    }
+  }, [])
+
+  const handleTemplateSelect = key => setTemplate(key)
+
+  const TemplateComponent = templates[template].component
 
   const options = [
     {
@@ -47,7 +53,11 @@ const PreviewPage = ({ location }) => {
           />
         </main>
       </div>
-      <Settings options={options} />
+      <Settings
+        options={options}
+        selectedTemplate={template}
+        onSelectTemplate={handleTemplateSelect}
+      />
     </>
   )
 }

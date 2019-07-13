@@ -1,21 +1,30 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import Option from "./option"
+import TextOption from "./text-option"
+import TemplateOption from "../components/template-option"
+import templates from "../templates"
 import toolbarStyles from "./toolbar.module.css"
 
-const Toolbar = ({ show, options, selected, onSelect }) => {
+const Toolbar = ({
+  show,
+  options,
+  selectedText,
+  onSelectText,
+  selectedTemplate,
+  onSelectTemplate,
+}) => {
   const renderOption = option => {
     const { name } = option
 
     return (
-      <Option
+      <TextOption
         key={name}
         title={name}
         value={option.value}
-        active={name === selected}
-        disabled={selected && name !== selected}
-        onClick={() => onSelect(name)}
+        active={name === selectedText}
+        disabled={selectedText && name !== selectedText}
+        onClick={() => onSelectText(name)}
       />
     )
   }
@@ -31,6 +40,17 @@ const Toolbar = ({ show, options, selected, onSelect }) => {
       }
     >
       {options.map(option => renderOption(option))}
+      <div className="p-4">
+        <h4>Template</h4>
+        {Object.keys(templates).map(template => (
+          <TemplateOption
+            key={templates[template].name}
+            name={templates[template].name}
+            active={template === selectedTemplate}
+            onClick={() => onSelectTemplate(template)}
+          />
+        ))}
+      </div>
     </div>
   )
 }
@@ -44,8 +64,10 @@ Toolbar.propTypes = {
       onChange: PropTypes.func.isRequired,
     })
   ),
-  selected: PropTypes.string,
-  onSelect: PropTypes.func.isRequired,
+  selectedText: PropTypes.string,
+  onSelectText: PropTypes.func.isRequired,
+  selectedTemplate: PropTypes.string,
+  onSelectTemplate: PropTypes.func.isRequired,
 }
 
 export default Toolbar

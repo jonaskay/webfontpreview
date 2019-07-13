@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { navigate } from "gatsby"
 
 import Header from "./header"
 import Footer from "./footer"
@@ -18,12 +19,16 @@ const Layout = ({
     { name: "Body", value: bodyFamily, onChange: onBodyFamilyChange },
   ]
 
+  const handleTemplateSelect = template => {
+    navigate("/preview", { state: { template } })
+  }
+
   return (
     <>
       <Header />
       <main className="lg:max-w-2xl xl:max-w-full">{children}</main>
       <Footer />
-      <Settings options={options} />
+      <Settings options={options} onSelectTemplate={handleTemplateSelect} />
     </>
   )
 }

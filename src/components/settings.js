@@ -8,12 +8,12 @@ import settingsStyles from "./settings.module.css"
 
 const { toggleEven, toggleOdd, expand } = settingsStyles
 
-const Settings = ({ options }) => {
+const Settings = ({ options, selectedTemplate, onSelectTemplate }) => {
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState(null)
+  const [selectedText, setSelectedText] = useState(null)
   const [animation, setAnimation] = useState(null)
 
-  const handleSelect = name => {
+  const handleSelectText = name => {
     const nextAnimation = () => {
       if (animation === toggleEven) {
         return toggleOdd
@@ -21,23 +21,23 @@ const Settings = ({ options }) => {
       return toggleEven
     }
 
-    const isCurrentlySelected = name === selected
+    const isCurrentlySelected = name === selectedText
 
     if (isCurrentlySelected) {
-      setSelected(null)
+      setSelectedText(null)
     } else {
-      if (selected) {
+      if (selectedText) {
         setAnimation(nextAnimation())
       } else {
         setAnimation(expand)
       }
-      setSelected(name)
+      setSelectedText(name)
     }
   }
 
   const toggleToolbar = () => {
     if (open) {
-      setSelected(null)
+      setSelectedText(null)
     }
     setOpen(!open)
   }
@@ -47,7 +47,7 @@ const Settings = ({ options }) => {
   return (
     <div
       className={
-        selected
+        selectedText
           ? `${defaultClassName} ${animation}`
           : `${defaultClassName} -mr-64`
       }
@@ -56,13 +56,15 @@ const Settings = ({ options }) => {
       <Toolbar
         show={open}
         options={options}
-        selected={selected}
-        onSelect={handleSelect}
+        selectedText={selectedText}
+        onSelectText={handleSelectText}
+        selectedTemplate={selectedTemplate}
+        onSelectTemplate={onSelectTemplate}
       />
       <Typography
         options={options}
-        selected={selected}
-        onClose={() => setSelected(null)}
+        selected={selectedText}
+        onClose={() => setSelectedText(null)}
       />
     </div>
   )
@@ -77,6 +79,8 @@ Settings.propTypes = {
       onChange: PropTypes.func.isRequired,
     })
   ),
+  selectedTemplate: PropTypes.string,
+  onSelectTemplate: PropTypes.func.isRequired,
 }
 
 Settings.defaultProps = {
