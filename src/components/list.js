@@ -72,7 +72,7 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
           Done
         </div>
       </div>
-      <ol class="absolute top-0 bottom-0 w-full overflow-y-scroll mt-12 md:mt-0">
+      <ol className="absolute top-0 bottom-0 w-full overflow-y-scroll mt-12 md:mt-0">
         {loadedFamilies().map(family => (
           <Family
             key={family}
