@@ -8,7 +8,13 @@ import settingsStyles from "./settings.module.css"
 
 const { toggleEven, toggleOdd, expand } = settingsStyles
 
-const Settings = ({ options, selectedTemplate, onSelectTemplate }) => {
+const Settings = ({
+  url,
+  options,
+  shareable,
+  selectedTemplate,
+  onSelectTemplate,
+}) => {
   const [open, setOpen] = useState(false)
   const [selectedText, setSelectedText] = useState(null)
   const [animation, setAnimation] = useState(null)
@@ -55,6 +61,8 @@ const Settings = ({ options, selectedTemplate, onSelectTemplate }) => {
       <Toggle open={open} onClick={toggleToolbar} />
       <Toolbar
         show={open}
+        shareable={shareable}
+        url={url}
         options={options}
         selectedText={selectedText}
         onSelectText={handleSelectText}
@@ -71,6 +79,7 @@ const Settings = ({ options, selectedTemplate, onSelectTemplate }) => {
 }
 
 Settings.propTypes = {
+  url: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -78,6 +87,7 @@ Settings.propTypes = {
       onChange: PropTypes.func.isRequired,
     })
   ),
+  shareable: PropTypes.bool,
   selectedTemplate: PropTypes.string,
   onSelectTemplate: PropTypes.func.isRequired,
 }

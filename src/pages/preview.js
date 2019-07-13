@@ -7,6 +7,9 @@ import previewStyles from "./preview.module.css"
 import templates from "../templates"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
+const HEADING = "heading"
+const BODY = "body"
+const TEMPLATE = "template"
 const defaultTemplate = Object.keys(templates)[0]
 
 const PreviewPage = ({ location }) => {
@@ -17,6 +20,19 @@ const PreviewPage = ({ location }) => {
   useEffect(() => {
     if (location.state && location.state.template) {
       setTemplate(location.state.template)
+      return
+    }
+
+    const url = new URL(location.href)
+    if (url) {
+      const headingParam = url.searchParams.get(HEADING)
+      const bodyParam = url.searchParams.get(BODY)
+      const templateParam = url.searchParams.get(TEMPLATE)
+      if (headingParam && bodyParam && templateParam) {
+        setHeadingFamily(headingParam)
+        setBodyFamily(bodyParam)
+        setTemplate(templateParam)
+      }
     }
   }, [])
 
@@ -54,9 +70,13 @@ const PreviewPage = ({ location }) => {
         </main>
       </div>
       <Settings
+        url={encodeURI(
+          `https://webfontpreview.com/preview?${HEADING}=${headingFamily}&${BODY}=${bodyFamily}&${TEMPLATE}=${template}`
+        )}
         options={options}
         selectedTemplate={template}
         onSelectTemplate={handleTemplateSelect}
+        shareable
       />
     </>
   )

@@ -3,11 +3,14 @@ import PropTypes from "prop-types"
 
 import TextOption from "./text-option"
 import TemplateOption from "../components/template-option"
+import Share from "../components/share"
 import templates from "../templates"
 import toolbarStyles from "./toolbar.module.css"
 
 const Toolbar = ({
   show,
+  shareable,
+  url,
   options,
   selectedText,
   onSelectText,
@@ -51,12 +54,20 @@ const Toolbar = ({
           />
         ))}
       </div>
+      {shareable && (
+        <div className="p-4">
+          <h4>Share</h4>
+          <Share url={url} />
+        </div>
+      )}
     </div>
   )
 }
 
 Toolbar.propTypes = {
   show: PropTypes.bool.isRequired,
+  shareable: PropTypes.bool,
+  url: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
