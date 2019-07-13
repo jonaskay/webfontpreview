@@ -1,15 +1,15 @@
 import React, { useState } from "react"
-import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Template from "../components/template"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
 const IndexPage = () => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
   const templates = {
-    article: "article",
+    article: "Article",
   }
 
   return (
@@ -32,13 +32,13 @@ const IndexPage = () => {
           specimens.
         </p>
         <p className="mb-2">To continue, select a template:</p>
-        <Link
-          to="/preview"
-          state={{ template: templates.article }}
-          className="border border-gray-700 hover:border-gray-900 py-1 px-2 rounded-full"
-        >
-          Article
-        </Link>
+        {Object.keys(templates).map(template => (
+          <Template
+            key={template}
+            name={templates[template]}
+            value={template}
+          />
+        ))}
       </div>
     </Layout>
   )
