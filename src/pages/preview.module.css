@@ -1,0 +1,5 @@
+.background {
+  background: linear-gradient(90deg, #f7fafc 18px, transparent 1%) center, linear-gradient(#f7fafc 18px, transparent 1%) center, #cbd5e0;
+  background-size: 20px 20px;
+  min-height: 100vh;
+}

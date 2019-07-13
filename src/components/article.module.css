@@ -1,9 +1,9 @@
 .h1 {
-  @apply text-3xl my-2 leading-tight;
+  @apply text-5xl my-2 leading-tight;
 }
 
 .h2 {
-  @apply text-xl mt-6 my-4;
+  @apply text-3xl mt-6 my-4;
 }
 
 .lead {
@@ -12,18 +12,4 @@
 
 .p {
   @apply my-4;
-}
-
-@media (min-width: 640px) {
-  .h1 {
-    @apply text-5xl;
-  }
-
-  .h2 {
-    @apply text-2xl;
-  }
-
-  .lead {
-    @apply text-xl my-4;
-  }
 }
