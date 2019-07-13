@@ -71,7 +71,6 @@ const Settings = ({ options, selectedTemplate, onSelectTemplate }) => {
 }
 
 Settings.propTypes = {
-  open: PropTypes.bool,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
