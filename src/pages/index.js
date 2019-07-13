@@ -10,6 +10,7 @@ const IndexPage = () => {
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
   const templates = {
     article: "Article",
+    hero: "Hero",
   }
 
   return (

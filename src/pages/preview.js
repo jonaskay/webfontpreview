@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 
 import SEO from "../components/seo"
 import Article from "../components/article"
+import Hero from "../components/hero"
 import Settings from "../components/settings"
 import previewStyles from "./preview.module.css"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
@@ -13,6 +14,7 @@ const PreviewPage = ({ location }) => {
 
   const templates = {
     article: Article,
+    hero: Hero,
   }
 
   let TemplateComponent
@@ -39,17 +41,17 @@ const PreviewPage = ({ location }) => {
     <>
       <SEO title="Preview Google Fonts" />
       <div className={previewStyles.background}>
-      <div className="p-4">
+        <div className="p-4">
           <Link to="/" className="text-gray-600 hover:text-black font-bold">
-          Web Font Preview
-        </Link>
-      </div>
+            Web Font Preview
+          </Link>
+        </div>
         <main className="overflow-x-scroll">
-        <TemplateComponent
-          headingFamily={headingFamily}
-          bodyFamily={bodyFamily}
-        />
-      </main>
+          <TemplateComponent
+            headingFamily={headingFamily}
+            bodyFamily={bodyFamily}
+          />
+        </main>
       </div>
       <Settings options={options} />
     </>

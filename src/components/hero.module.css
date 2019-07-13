@@ -1,0 +1,37 @@
+.brand {
+  @apply text-xl;
+}
+
+.link {
+  @apply inline-block mx-3 text-gray-200;
+}
+
+.h1 {
+  @apply text-4xl mb-0;
+}
+
+.lead {
+  @apply text-xl mb-3;
+}
+
+.button {
+  @apply inline-block bg-gray-900 shadow-md px-5 py-2 rounded;
+}
+
+.background {
+  @apply absolute top-0 left-0 w-full h-full overflow-y-hidden;
+}
+
+.background > div > div {
+}
+
+.background img {
+  object-fit: cover !important;
+  object-position: 0% 0% !important;
+}
+
+.background::after {
+  @apply absolute top-0 left-0 w-full h-full bg-gray-900;
+  content: "";
+  opacity: 0.5;
+}

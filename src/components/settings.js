@@ -42,7 +42,7 @@ const Settings = ({ options }) => {
     setOpen(!open)
   }
 
-  const defaultClassName = `fixed top-0 bottom-0 right-0 overflow-x-hidden flex items-start ${settingsStyles.transition}`
+  const defaultClassName = `fixed z-40 top-0 bottom-0 right-0 overflow-x-hidden flex items-start ${settingsStyles.transition}`
 
   return (
     <div
