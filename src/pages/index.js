@@ -3,15 +3,12 @@ import React, { useState } from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Template from "../components/template"
+import templates from "../templates"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
 const IndexPage = () => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
-  const templates = {
-    article: "Article",
-    hero: "Hero",
-  }
 
   return (
     <Layout
@@ -35,8 +32,8 @@ const IndexPage = () => {
         <p className="mb-2">To continue, select a template:</p>
         {Object.keys(templates).map(template => (
           <Template
-            key={template}
-            name={templates[template]}
+            key={templates[template].name}
+            name={templates[template].name}
             value={template}
           />
         ))}

@@ -2,26 +2,20 @@ import React, { useState } from "react"
 import { Link } from "gatsby"
 
 import SEO from "../components/seo"
-import Article from "../components/article"
-import Hero from "../components/hero"
 import Settings from "../components/settings"
 import previewStyles from "./preview.module.css"
+import templates from "../templates"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
 const PreviewPage = ({ location }) => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
 
-  const templates = {
-    article: Article,
-    hero: Hero,
-  }
-
   let TemplateComponent
   if (location.state && location.state.template) {
-    TemplateComponent = templates[location.state.template]
+    TemplateComponent = templates[location.state.template].component
   } else {
-    TemplateComponent = Article
+    TemplateComponent = templates[Object.keys(templates)[0]].component
   }
 
   const options = [
