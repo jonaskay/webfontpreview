@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import TextOption from "./text-option"
 import TemplateOption from "../components/template-option"
 import Share from "../components/share"
+import Github from "./github"
 import templates from "../templates"
 import toolbarStyles from "./toolbar.module.css"
 
@@ -32,7 +33,7 @@ const Toolbar = ({
     )
   }
 
-  const defaultClassName = `flex-none w-64 md:w-56 h-full border-l lg:mr-0 bg-white ${toolbarStyles.transition}`
+  const defaultClassName = `flex-none relative w-64 md:w-56 h-full border-l lg:mr-0 bg-white ${toolbarStyles.transition}`
 
   return (
     <div
@@ -60,6 +61,9 @@ const Toolbar = ({
           <Share url={url} />
         </div>
       )}
+      <div className="absolute bottom-0 right-0 w-6 m-3">
+        <Github />
+      </div>
     </div>
   )
 }

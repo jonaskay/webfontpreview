@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import { navigate } from "gatsby"
 
 import Header from "./header"
-import Footer from "./footer"
 import Settings from "./settings"
 import "./layout.css"
 
@@ -27,7 +26,6 @@ const Layout = ({
     <>
       <Header />
       <main className="lg:max-w-2xl xl:max-w-full">{children}</main>
-      <Footer />
       <Settings options={options} onSelectTemplate={handleTemplateSelect} />
     </>
   )
