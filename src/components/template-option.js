@@ -8,7 +8,7 @@ const TemplateOption = ({ name, active, onClick }) => {
     <div
       className={
         active
-          ? `text-white bg-gray-700 border-gray-800 ${defaultClassName}`
+          ? `text-white bg-black border-black ${defaultClassName}`
           : defaultClassName
       }
       onClick={onClick}

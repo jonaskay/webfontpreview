@@ -9,7 +9,7 @@ const Select = ({ value, active, disabled, onClick }) => {
       return `${base} text-gray-500 bg-gray-100 border-gray-300`
     }
     if (active) {
-      return `${base} text-white bg-gray-700 border-gray-800`
+      return `${base} bg-black border-black text-white`
     }
     return `${base} bg-gray-100`
   }

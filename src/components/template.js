@@ -6,7 +6,7 @@ const Template = ({ name, value }) => (
   <Link
     to="/preview"
     state={{ template: value }}
-    className="border border-gray-700 hover:border-gray-900 py-1 px-2 mx-1 rounded-full"
+    className="border border-red-500 hover:border-red-600 text-red-500 hover:text-red-600 py-1 px-2 mx-1 rounded-full"
   >
     {name}
   </Link>

@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <header className="p-4">
-      <h4 className="text-black font-bold text-md">
+      <h4 className="font-bold text-md cursor-pointer">
         {data.site.siteMetadata.title}
       </h4>
     </header>

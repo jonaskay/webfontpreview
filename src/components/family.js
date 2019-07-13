@@ -8,7 +8,7 @@ const Family = ({ name, active, onClick }) => {
     <li
       className={
         active
-          ? `${defaultClassName} border-gray-800 bg-gray-700 text-white`
+          ? `${defaultClassName} border-black bg-black text-white`
           : `${defaultClassName} bg-gray-100`
       }
       style={{ fontFamily: name }}
