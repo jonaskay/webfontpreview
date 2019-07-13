@@ -1,0 +1,7 @@
+.h1 {
+  @apply text-3xl border-b border-gray-600 pb-2 mb-8;
+}
+
+.h2 {
+  @apply text-xl mt-16 mb-2;
+}
