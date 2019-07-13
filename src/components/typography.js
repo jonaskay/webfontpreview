@@ -45,7 +45,7 @@ Typography.propTypes = {
       onChange: PropTypes.func.isRequired,
     })
   ).isRequired,
-  selected: PropTypes.string.isRequired,
+  selected: PropTypes.string,
   onClose: PropTypes.func.isRequired,
 }
 
