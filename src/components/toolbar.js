@@ -71,7 +71,7 @@ const Toolbar = ({
 Toolbar.propTypes = {
   show: PropTypes.bool.isRequired,
   shareable: PropTypes.bool,
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,

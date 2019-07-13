@@ -79,7 +79,7 @@ const Settings = ({
 }
 
 Settings.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
