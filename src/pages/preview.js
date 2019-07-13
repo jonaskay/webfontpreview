@@ -6,9 +6,20 @@ import Article from "../components/article"
 import Settings from "../components/settings"
 import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 
-const PreviewPage = () => {
+const PreviewPage = ({ location }) => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
+
+  const templates = {
+    article: Article,
+  }
+
+  let TemplateComponent
+  if (location.state && location.state.template) {
+    TemplateComponent = templates[location.state.template]
+  } else {
+    TemplateComponent = Article
+  }
 
   const options = [
     {
@@ -35,7 +46,10 @@ const PreviewPage = () => {
         </Link>
       </div>
       <main className="p-6 md:p-16 max-w-3xl">
-        <Article headingFamily={headingFamily} bodyFamily={bodyFamily} />
+        <TemplateComponent
+          headingFamily={headingFamily}
+          bodyFamily={bodyFamily}
+        />
       </main>
       <Settings options={options} />
     </>

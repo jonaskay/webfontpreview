@@ -8,6 +8,9 @@ import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
 const IndexPage = () => {
   const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
   const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
+  const templates = {
+    article: "article",
+  }
 
   return (
     <Layout
@@ -31,6 +34,7 @@ const IndexPage = () => {
         <p className="mb-2">To continue, select a template:</p>
         <Link
           to="/preview"
+          state={{ template: templates.article }}
           className="border border-gray-700 hover:border-gray-900 py-1 px-2 rounded-full"
         >
           Article
