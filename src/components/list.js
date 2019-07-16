@@ -8,6 +8,16 @@ import listStyles from "./list.module.css"
 
 const INITIAL_BUFFER = 20
 
+const loadWebFonts = families => {
+  if (typeof window !== "undefined" && families.length > 0) {
+    WebFont.load({
+      google: {
+        families,
+      },
+    })
+  }
+}
+
 const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const [families, setFamilies] = useState([])
   const [buffer, setBuffer] = useState(null)
@@ -34,13 +44,11 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
   }, [])
 
   useEffect(() => {
-    if (families.length > 0 && typeof window !== "undefined") {
-      WebFont.load({
-        google: {
-          families: families.slice(0, buffer),
-        },
-      })
-    }
+    loadWebFonts([selected])
+  }, [selected])
+
+  useEffect(() => {
+    loadWebFonts(families.slice(0, buffer))
   }, [buffer])
 
   const handleScroll = event => {
