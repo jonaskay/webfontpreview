@@ -55,7 +55,7 @@ const Typography = ({ options, selected, onClose }) => {
           : `ml-0 ${defaultClassName}`
       }
     >
-      {data.length > 0 && options.map(option => renderList(option))}
+      {options.map(option => renderList(option))}
     </div>
   )
 }
