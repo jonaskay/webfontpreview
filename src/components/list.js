@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
+import axios from "axios"
 
 import WebFont from "./web-font"
 import Category from "./category"
@@ -18,7 +19,7 @@ const loadWebFonts = families => {
   }
 }
 
-const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
+const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const categories = [
     {
       name: "Serif",
@@ -41,10 +42,18 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
       value: "monospace",
     },
   ]
+  const sortings = [
+    { name: "Trending now", value: "trending" },
+    { name: "Most popular", value: "popularity" },
+    { name: "Newest", value: "date" },
+    { name: "Name", value: "alpha" },
+  ]
 
+  const [data, setData] = useState([])
   const [selectedCategories, setSelectedCategories] = useState(
     categories.map(category => category.value)
   )
+  const [sort, setSort] = useState(sortings[0].value)
   const [search, setSearch] = useState("")
   const [buffer, setBuffer] = useState(INITIAL_BUFFER)
   const availableFamilies = data
@@ -52,6 +61,25 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
     .filter(item => item.family.toLowerCase().includes(search.toLowerCase()))
     .slice(0, buffer)
     .map(item => item.family)
+
+  useEffect(() => {
+    ;(async () => {
+      const result = await axios(
+        `https://www.googleapis.com/webfonts/v1/webfonts`,
+        {
+          params: {
+            key: process.env.GATSBY_GOOGLE_API_KEY,
+            sort: sort,
+          },
+        }
+      )
+
+      const {
+        data: { items },
+      } = result
+      setData(items)
+    })()
+  }, [sort])
 
   useEffect(() => {
     loadWebFonts([selected])
@@ -74,6 +102,8 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
   }
 
   const handleSearchChange = event => setSearch(event.target.value)
+
+  const handleSortChange = event => setSort(event.target.value)
 
   const handleScroll = event => {
     const { target } = event
@@ -124,6 +154,16 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
             onChange={handleSearchChange}
           />
         </div>
+        <div className="border-l border-b px-2 py-4 bg-white">
+          <span className="inline-block mr-2">Sort by:</span>
+          <select value={sort} onChange={handleSortChange}>
+            {sortings.map(sorting => (
+              <option key={sorting.value} value={sorting.value}>
+                {sorting.name}
+              </option>
+            ))}
+          </select>
+        </div>
         {availableFamilies.length > 0 ? (
           <ol className="flex-grow border-l">
             {availableFamilies.map(family => (
@@ -146,7 +186,6 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
 }
 
 List.propTypes = {
-  data: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   selected: PropTypes.string,
