@@ -45,9 +45,11 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
   const [selectedCategories, setSelectedCategories] = useState(
     categories.map(category => category.value)
   )
+  const [search, setSearch] = useState("")
   const [buffer, setBuffer] = useState(INITIAL_BUFFER)
   const availableFamilies = data
     .filter(item => selectedCategories.includes(item.category))
+    .filter(item => item.family.toLowerCase().includes(search.toLowerCase()))
     .slice(0, buffer)
     .map(item => item.family)
 
@@ -70,6 +72,8 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
     }
     setSelectedCategories(newSelectedCategories)
   }
+
+  const handleSearchChange = event => setSearch(event.target.value)
 
   const handleScroll = event => {
     const { target } = event
@@ -110,6 +114,15 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
               onClick={handleCategoryClick}
             />
           ))}
+        </div>
+        <div className="border-l border-b px-2 py-4 bg-white">
+          <input
+            type="text"
+            className="border-b border-gray-400 focus:border-gray-900 outline-none w-full text-"
+            placeholder="Search"
+            value={search}
+            onChange={handleSearchChange}
+          />
         </div>
         {availableFamilies.length > 0 ? (
           <ol className="flex-grow">
