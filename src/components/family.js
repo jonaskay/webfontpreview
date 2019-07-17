@@ -11,7 +11,7 @@ const Family = ({ name, active, onClick }) => {
           ? `${defaultClassName} border-black bg-black text-white`
           : `${defaultClassName} bg-gray-100`
       }
-      style={{ fontFamily: name }}
+      style={{ fontFamily: name, marginLeft: -1 }}
       onClick={() => onClick(name)}
     >
       {name}

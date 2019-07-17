@@ -125,7 +125,7 @@ const List = ({ data, title, disabled, selected, onSelect, onClose }) => {
           />
         </div>
         {availableFamilies.length > 0 ? (
-          <ol className="flex-grow">
+          <ol className="flex-grow border-l">
             {availableFamilies.map(family => (
               <Family
                 key={family}
