@@ -1,0 +1,28 @@
+.navItem {
+  @apply mx-4;
+  display: inline-block;
+}
+
+.navItem:last-child {
+  @apply mr-0;
+}
+
+.separator {
+  @apply h-16;
+  background-image: url("../../images/diagonal.svg");
+  width: 100%;
+}
+
+.background {
+  background-image: linear-gradient(45deg, #EDF2F7, #FFF 50%, #EDF2F7);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.button {
+  @apply py-2 uppercase tracking-wide;
+  display: inline-block;
+}

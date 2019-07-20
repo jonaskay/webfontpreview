@@ -1,9 +1,11 @@
 import Article from "./components/article"
 import Dashboard from "./components/dashboard"
 import Hero from "./components/hero"
+import Startup from "./components/templates/startup"
 
 export default {
   article: { name: "Article", component: Article },
   dashboard: { name: "Dashboard", component: Dashboard },
   hero: { name: "Hero", component: Hero },
+  startup: { name: "Startup", component: Startup },
 }
