@@ -4,7 +4,7 @@ import { PieChart, Pie, Cell } from "recharts"
 
 const colors = ["#EDF2F7", "#CBD5E0", "#718096"]
 
-const DashboardPieChart = ({ data, headingStyle, bodyStyle }) => (
+const DashboardPieChart = ({ data, headingStyle, defaultStyle }) => (
   <div className="text-center">
     <PieChart width={250} height={250}>
       <Pie data={data} innerRadius={80} paddingAngle={2} dataKey="value">
@@ -16,7 +16,7 @@ const DashboardPieChart = ({ data, headingStyle, bodyStyle }) => (
     <div className="-mt-2 mb-2 text-gray-500" style={headingStyle}>
       Lorem ipsum
     </div>
-    <ol className="inline-block text-left" style={bodyStyle}>
+    <ol className="inline-block text-left" style={defaultStyle}>
       {data.map((item, index) => (
         <li key={index}>
           <div
@@ -33,7 +33,7 @@ const DashboardPieChart = ({ data, headingStyle, bodyStyle }) => (
 DashboardPieChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.number })),
   headingStyle: PropTypes.object.isRequired,
-  bodyStyle: PropTypes.object.isRequired,
+  defaultStyle: PropTypes.object.isRequired,
 }
 
 export default DashboardPieChart

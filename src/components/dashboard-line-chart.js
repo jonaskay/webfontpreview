@@ -7,7 +7,7 @@ const difference = (first, second) => {
   return `${percentage}%`
 }
 
-const DashboardLineChart = ({ data, headingStyle, bodyStyle }) => (
+const DashboardLineChart = ({ data, headingStyle, defaultStyle }) => (
   <div className="bg-gray-800">
     <div className="p-4 pb-8">
       <div
@@ -17,10 +17,10 @@ const DashboardLineChart = ({ data, headingStyle, bodyStyle }) => (
         Lorem ipsum
       </div>
       <div className="flex items-center">
-        <div className="text-3xl" style={bodyStyle}>
+        <div className="text-3xl" style={defaultStyle}>
           {data[data.length - 1].value}
         </div>
-        <div className="text-sm ml-2" style={bodyStyle}>
+        <div className="text-sm ml-2" style={defaultStyle}>
           {difference(data[data.length - 1].value, data[data.length - 2].value)}
         </div>
       </div>
@@ -53,7 +53,7 @@ const DashboardLineChart = ({ data, headingStyle, bodyStyle }) => (
 DashboardLineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.number })),
   headingStyle: PropTypes.object.isRequired,
-  bodyStyle: PropTypes.object.isRequired,
+  defaultStyle: PropTypes.object.isRequired,
 }
 
 export default DashboardLineChart

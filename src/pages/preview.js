@@ -34,6 +34,8 @@ const PreviewPage = ({ location }) => {
   const handleTemplateSelect = key => setTemplate(key)
 
   const TemplateComponent = template && templates[template].component
+  const headingStyle = { fontFamily: headingFamily }
+  const defaultStyle = { fontFamily: bodyFamily }
 
   const options = [
     {
@@ -60,8 +62,8 @@ const PreviewPage = ({ location }) => {
         <main className="overflow-x-scroll">
           {TemplateComponent && (
             <TemplateComponent
-              headingFamily={headingFamily}
-              bodyFamily={bodyFamily}
+              headingStyle={headingStyle}
+              defaultStyle={defaultStyle}
             />
           )}
         </main>

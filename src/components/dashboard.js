@@ -40,47 +40,42 @@ const pieDataSet = [
   [{ value: 83382 }, { value: 11420 }, { value: 92680 }],
 ]
 
-const Dashboard = ({ headingFamily, bodyFamily }) => {
-  const headingStyle = { fontFamily: headingFamily }
-  const bodyStyle = { fontFamily: bodyFamily }
-
-  return (
-    <div className="p-6" style={{ width: 1024 }}>
-      <div className="border p-16 bg-gray-900 text-white">
-        <div className={dashboardStyles.h1} style={headingStyle}>
-          Lorem ipsum
-        </div>
-        <div className="flex justify-between">
-          {areaDataSet.map((data, index) => (
-            <DashboardLineChart
-              key={index}
-              data={data}
-              headingStyle={headingStyle}
-              bodyStyle={bodyStyle}
-            />
-          ))}
-        </div>
-        <div className={dashboardStyles.h2} style={headingStyle}>
-          Lorem ipsum
-        </div>
-        <div className="flex justify-between">
-          {pieDataSet.map((data, index) => (
-            <DashboardPieChart
-              key={index}
-              data={data}
-              headingStyle={headingStyle}
-              bodyStyle={bodyStyle}
-            />
-          ))}
-        </div>
+const Dashboard = ({ headingStyle, defaultStyle }) => (
+  <div className="p-6" style={{ width: 1024 }}>
+    <div className="border p-16 bg-gray-900 text-white">
+      <div className={dashboardStyles.h1} style={headingStyle}>
+        Lorem ipsum
+      </div>
+      <div className="flex justify-between">
+        {areaDataSet.map((data, index) => (
+          <DashboardLineChart
+            key={index}
+            data={data}
+            headingStyle={headingStyle}
+            defaultStyle={defaultStyle}
+          />
+        ))}
+      </div>
+      <div className={dashboardStyles.h2} style={headingStyle}>
+        Lorem ipsum
+      </div>
+      <div className="flex justify-between">
+        {pieDataSet.map((data, index) => (
+          <DashboardPieChart
+            key={index}
+            data={data}
+            headingStyle={headingStyle}
+            defaultStyle={defaultStyle}
+          />
+        ))}
       </div>
     </div>
-  )
-}
+  </div>
+)
 
 Dashboard.propTypes = {
-  headingFamily: PropTypes.string,
-  bodyFamily: PropTypes.string,
+  headingStyle: PropTypes.object,
+  defaultStyle: PropTypes.object,
 }
 
 export default Dashboard
