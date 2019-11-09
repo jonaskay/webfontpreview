@@ -1,7 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import TextOption from "./text-option"
+import FamilySelect from "./family-select"
+import VariantSelect from "./variant-select"
 import TemplateOption from "../components/template-option"
 import Share from "../components/share"
 import Github from "./github"
@@ -22,14 +23,22 @@ const Toolbar = ({
     const { name } = option
 
     return (
-      <TextOption
-        key={name}
-        title={name}
-        value={option.value}
-        active={name === selectedText}
-        disabled={selectedText && name !== selectedText}
-        onClick={() => onSelectText(name)}
-      />
+      <div key={name} className="p-4">
+        <FamilySelect
+          title={name}
+          value={option.value}
+          active={name === selectedText}
+          disabled={selectedText && name !== selectedText}
+          onClick={() => onSelectText(name)}
+        />
+        <VariantSelect
+          disabled={!!selectedText}
+          selectedFamily={option.value}
+          selectedVariant={option.variant}
+          onSelect={option.onVariantChange}
+          variants={option.variants}
+        />
+      </div>
     )
   }
 

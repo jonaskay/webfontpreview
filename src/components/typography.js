@@ -6,8 +6,8 @@ import typogprahyStyles from "./typography.module.css"
 
 const Typography = ({ options, selected, onClose }) => {
   const renderList = option => {
-    const handleFamilySelect = family => {
-      option.onChange(family)
+    const handleFamilySelect = (family, variants) => {
+      option.onChange(family, variants)
     }
 
     return (
@@ -16,7 +16,7 @@ const Typography = ({ options, selected, onClose }) => {
         title={`Choose ${option.name.toLowerCase()}`}
         disabled={selected && option.name !== selected}
         selected={option.value}
-        onSelect={family => handleFamilySelect(family)}
+        onSelect={(family, variants) => handleFamilySelect(family, variants)}
         onClose={onClose}
       />
     )
@@ -46,6 +46,7 @@ Typography.propTypes = {
     })
   ).isRequired,
   selected: PropTypes.string,
+  selectedVariant: PropTypes.string,
   onClose: PropTypes.func.isRequired,
 }
 

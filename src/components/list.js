@@ -2,22 +2,12 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import axios from "axios"
 
-import WebFont from "./web-font"
+import loadWebFonts from "../utilities/load-web-fonts"
 import Category from "./category"
 import Family from "./family"
 import listStyles from "./list.module.css"
 
 const INITIAL_BUFFER = 20
-
-const loadWebFonts = families => {
-  if (typeof window !== "undefined" && families.length > 0) {
-    WebFont.load({
-      google: {
-        families,
-      },
-    })
-  }
-}
 
 const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const categories = [
@@ -56,11 +46,16 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const [sort, setSort] = useState(sortings[0].value)
   const [search, setSearch] = useState("")
   const [buffer, setBuffer] = useState(INITIAL_BUFFER)
-  const availableFamilies = data
+  const availableFonts = data
     .filter(item => selectedCategories.includes(item.category))
     .filter(item => item.family.toLowerCase().includes(search.toLowerCase()))
     .slice(0, buffer)
-    .map(item => item.family)
+    .map(item => {
+      return {
+        family: item.family,
+        variants: item.variants,
+      }
+    })
 
   useEffect(() => {
     ;(async () => {
@@ -86,8 +81,8 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
   }, [selected])
 
   useEffect(() => {
-    loadWebFonts(availableFamilies)
-  }, [availableFamilies])
+    loadWebFonts(availableFonts.map(item => item.family))
+  }, [availableFonts])
 
   const handleCategoryClick = value => {
     let newSelectedCategories
@@ -164,13 +159,14 @@ const List = ({ title, disabled, selected, onSelect, onClose }) => {
             ))}
           </select>
         </div>
-        {availableFamilies.length > 0 ? (
+        {availableFonts.length > 0 ? (
           <ol className="flex-grow border-l">
-            {availableFamilies.map(family => (
+            {availableFonts.map(font => (
               <Family
-                key={family}
-                name={family}
-                active={family === selected}
+                key={font.family}
+                name={font.family}
+                variants={font.variants}
+                active={font.family === selected}
                 onClick={onSelect}
               />
             ))}

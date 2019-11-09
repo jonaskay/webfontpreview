@@ -40,9 +40,24 @@ const pieDataSet = [
   [{ value: 83382 }, { value: 11420 }, { value: 92680 }],
 ]
 
-const Dashboard = ({ headingFamily, bodyFamily }) => {
-  const headingStyle = { fontFamily: headingFamily }
-  const bodyStyle = { fontFamily: bodyFamily }
+const Dashboard = ({
+  headingFamily,
+  headingFontStyle,
+  headingFontWeight,
+  bodyFamily,
+  bodyFontStyle,
+  bodyFontWeight,
+}) => {
+  const headingStyle = {
+    fontFamily: headingFamily,
+    fontStyle: headingFontStyle,
+    fontWeight: headingFontWeight,
+  }
+  const bodyStyle = {
+    fontFamily: bodyFamily,
+    fontStyle: bodyFontStyle,
+    fontWeight: bodyFontWeight,
+  }
 
   return (
     <div className="p-6" style={{ width: 1024 }}>
@@ -80,7 +95,11 @@ const Dashboard = ({ headingFamily, bodyFamily }) => {
 
 Dashboard.propTypes = {
   headingFamily: PropTypes.string,
+  headingFontStyle: PropTypes.string,
+  headingFontWeight: PropTypes.string,
   bodyFamily: PropTypes.string,
+  bodyFontStyle: PropTypes.string,
+  bodyFontWeight: PropTypes.string,
 }
 
 export default Dashboard

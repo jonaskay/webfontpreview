@@ -4,9 +4,24 @@ import PropTypes from "prop-types"
 import HeroBackground from "./hero-background"
 import heroStyles from "./hero.module.css"
 
-const Hero = ({ headingFamily, bodyFamily }) => {
-  const headingStyle = { fontFamily: headingFamily }
-  const bodyStyle = { fontFamily: bodyFamily }
+const Hero = ({
+  headingFamily,
+  headingFontStyle,
+  headingFontWeight,
+  bodyFamily,
+  bodyFontStyle,
+  bodyFontWeight,
+}) => {
+  const headingStyle = {
+    fontFamily: headingFamily,
+    fontStyle: headingFontStyle,
+    fontWeight: headingFontWeight,
+  }
+  const bodyStyle = {
+    fontFamily: bodyFamily,
+    fontStyle: bodyFontStyle,
+    fontWeight: bodyFontWeight,
+  }
 
   return (
     <div className="p-6" style={{ width: 1024, height: 640 }}>
@@ -47,7 +62,11 @@ const Hero = ({ headingFamily, bodyFamily }) => {
 
 Hero.propTypes = {
   headingFamily: PropTypes.string,
+  headingFontStyle: PropTypes.string,
+  headingFontWeight: PropTypes.string,
   bodyFamily: PropTypes.string,
+  bodyFontStyle: PropTypes.string,
+  bodyFontWeight: PropTypes.string,
 }
 
 export default Hero

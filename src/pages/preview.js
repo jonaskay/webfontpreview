@@ -5,7 +5,14 @@ import SEO from "../components/seo"
 import Settings from "../components/settings"
 import previewStyles from "./preview.module.css"
 import templates from "../templates"
-import { defaultHeadingFamily, defaultBodyFamily } from "../variables"
+import {
+  defaultHeadingFamily,
+  defaultHeadingVariants,
+  defaultBodyFamily,
+  defaultBodyVariants,
+  defaultVariant,
+} from "../variables"
+import { getFontWeight, getFontStyle } from "../utilities/font-variant-parser"
 
 const HEADING = "heading"
 const BODY = "body"
@@ -13,7 +20,11 @@ const TEMPLATE = "template"
 
 const PreviewPage = ({ location }) => {
   const [headingFamily, setHeadingFamily] = useState(null)
+  const [headingVariant, setHeadingVariant] = useState(defaultVariant)
+  const [headingVariants, setHeadingVariants] = useState(defaultHeadingVariants)
   const [bodyFamily, setBodyFamily] = useState(null)
+  const [bodyVariant, setBodyVariant] = useState(defaultVariant)
+  const [bodyVariants, setBodyVariants] = useState(defaultBodyVariants)
   const [template, setTemplate] = useState(null)
 
   useEffect(() => {
@@ -31,7 +42,28 @@ const PreviewPage = ({ location }) => {
     setBodyFamily(bodyParam || defaultBodyFamily)
   }, [])
 
+  const handleHeadingFamilyChange = (family, variants) => {
+    setHeadingFamily(family)
+    setHeadingVariants(variants)
+  }
+
+  const handleHeadingVariantChange = variant => setHeadingVariant(variant)
+
+  const handleBodyFamilyChange = (family, variants) => {
+    setBodyFamily(family)
+    setBodyVariants(variants)
+  }
+
+  const handleBodyVariantChange = variant => {
+    setBodyVariant(variant)
+  }
+
   const handleTemplateSelect = key => setTemplate(key)
+
+  const headingFontWeight = getFontWeight(headingVariant)
+  const headingFontStyle = getFontStyle(headingVariant)
+  const bodyFontWeight = getFontWeight(bodyVariant)
+  const bodyFontStyle = getFontStyle(bodyVariant)
 
   const TemplateComponent = template && templates[template].component
 
@@ -39,12 +71,18 @@ const PreviewPage = ({ location }) => {
     {
       name: "Heading",
       value: headingFamily,
-      onChange: family => setHeadingFamily(family),
+      onChange: handleHeadingFamilyChange,
+      variant: headingVariant,
+      onVariantChange: handleHeadingVariantChange,
+      variants: headingVariants,
     },
     {
       name: "Body",
       value: bodyFamily,
-      onChange: family => setBodyFamily(family),
+      onChange: handleBodyFamilyChange,
+      variant: bodyVariant,
+      onVariantChange: handleBodyVariantChange,
+      variants: bodyVariants,
     },
   ]
 
@@ -61,7 +99,11 @@ const PreviewPage = ({ location }) => {
           {TemplateComponent && (
             <TemplateComponent
               headingFamily={headingFamily}
+              headingFontStyle={headingFontStyle}
+              headingFontWeight={headingFontWeight}
               bodyFamily={bodyFamily}
+              bodyFontStyle={bodyFontStyle}
+              bodyFontWeight={bodyFontWeight}
             />
           )}
         </main>

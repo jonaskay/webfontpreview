@@ -3,9 +3,24 @@ import PropTypes from "prop-types"
 
 import articleStyles from "./article.module.css"
 
-const Article = ({ headingFamily, bodyFamily }) => {
-  const headingStyle = { fontFamily: headingFamily }
-  const bodyStyle = { fontFamily: bodyFamily }
+const Article = ({
+  headingFamily,
+  headingFontStyle,
+  headingFontWeight,
+  bodyFamily,
+  bodyFontStyle,
+  bodyFontWeight,
+}) => {
+  const headingStyle = {
+    fontFamily: headingFamily,
+    fontStyle: headingFontStyle,
+    fontWeight: headingFontWeight,
+  }
+  const bodyStyle = {
+    fontFamily: bodyFamily,
+    fontStyle: bodyFontStyle,
+    fontWeight: bodyFontWeight,
+  }
 
   return (
     <div className="p-6" style={{ width: 768 }}>
@@ -70,7 +85,11 @@ const Article = ({ headingFamily, bodyFamily }) => {
 
 Article.propTypes = {
   headingFamily: PropTypes.string,
+  headingFontStyle: PropTypes.string,
+  headingFontWeight: PropTypes.string,
   bodyFamily: PropTypes.string,
+  bodyFontStyle: PropTypes.string,
+  bodyFontWeight: PropTypes.string,
 }
 
 export default Article
