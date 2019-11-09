@@ -2,22 +2,12 @@ import React, { useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import axios from "axios"
 
-import WebFont from "./web-font"
+import loadWebFonts from "../utilities/load-web-fonts"
 import Category from "./category"
 import Family from "./family"
 import listStyles from "./list.module.css"
 
 const INITIAL_BUFFER = 20
-
-const loadWebFonts = families => {
-  if (typeof window !== "undefined" && families.length > 0) {
-    WebFont.load({
-      google: {
-        families,
-      },
-    })
-  }
-}
 
 const List = ({ title, disabled, selected, onSelect, onClose }) => {
   const categories = [
