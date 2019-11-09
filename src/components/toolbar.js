@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import TextOption from "./text-option"
+import FamilySelect from "./family-select"
 import TemplateOption from "../components/template-option"
 import Share from "../components/share"
 import Github from "./github"
@@ -22,7 +22,7 @@ const Toolbar = ({
     const { name } = option
 
     return (
-      <TextOption
+      <FamilySelect
         key={name}
         title={name}
         value={option.value}

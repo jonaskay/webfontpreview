@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import Label from "./label"
 import Select from "./select"
 
-const TextOption = ({ title, value, active, disabled, onClick }) => {
+const FamilySelect = ({ title, value, active, disabled, onClick }) => {
   return (
     <div className="p-4">
       <Label
@@ -23,7 +23,7 @@ const TextOption = ({ title, value, active, disabled, onClick }) => {
   )
 }
 
-TextOption.propTypes = {
+FamilySelect.propTypes = {
   title: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
@@ -31,8 +31,8 @@ TextOption.propTypes = {
   onClick: PropTypes.func.isRequired,
 }
 
-TextOption.defaultProps = {
+FamilySelect.defaultProps = {
   value: "",
 }
 
-export default TextOption
+export default FamilySelect
