@@ -6,7 +6,7 @@ import Select from "./select"
 
 const FamilySelect = ({ title, value, active, disabled, onClick }) => {
   return (
-    <div className="p-4">
+    <div className="mb-2">
       <Label
         text={title}
         active={active}
