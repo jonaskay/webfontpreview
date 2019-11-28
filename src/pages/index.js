@@ -1,54 +1,26 @@
-import React, { useState } from "react"
+import React from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Template from "../components/template"
 import templates from "../templates"
-import {
-  defaultHeadingFamily,
-  defaultHeadingVariants,
-  defaultBodyFamily,
-  defaultBodyVariants,
-  defaultVariant,
-} from "../variables"
 import { getFontWeight, getFontStyle } from "../utilities/font-variant-parser"
 
-const IndexPage = () => {
-  const [headingFamily, setHeadingFamily] = useState(defaultHeadingFamily)
-  const [headingVariant, setHeadingVariant] = useState(defaultVariant)
-  const [headingVariants, setHeadingVariants] = useState(defaultHeadingVariants)
-  const [bodyFamily, setBodyFamily] = useState(defaultBodyFamily)
-  const [bodyVariant, setBodyVariant] = useState(defaultVariant)
-  const [bodyVariants, setBodyVariants] = useState(defaultBodyVariants)
-
-  const handleHeadingFamilyChange = (family, variants) => {
-    setHeadingFamily(family)
-    setHeadingVariants(variants)
-  }
-
-  const handleBodyFamilyChange = (family, variants) => {
-    setBodyFamily(family)
-    setBodyVariants(variants)
-  }
-
+const IndexPage = ({
+  headingFamily,
+  headingVariant,
+  bodyFamily,
+  bodyVariant,
+}) => {
   const headingFontWeight = getFontWeight(headingVariant)
   const headingFontStyle = getFontStyle(headingVariant)
   const bodyFontWeight = getFontWeight(bodyVariant)
   const bodyFontStyle = getFontStyle(bodyVariant)
 
   return (
-    <Layout
-      headingFamily={headingFamily}
-      headingVariant={headingVariant}
-      headingVariants={headingVariants}
-      bodyFamily={bodyFamily}
-      bodyVariant={bodyVariant}
-      bodyVariants={bodyVariants}
-      onHeadingFamilyChange={handleHeadingFamilyChange}
-      onHeadingVariantChange={variant => setHeadingVariant(variant)}
-      onBodyFamilyChange={handleBodyFamilyChange}
-      onBodyVariantChange={variant => setBodyVariant(variant)}
-    >
+    <Layout>
       <SEO title="Preview Google Fonts" />
       <div className="p-6 md:p-16">
         <h1
@@ -85,4 +57,18 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+IndexPage.propTypes = {
+  headingFamily: PropTypes.string.isRequired,
+  headingVariant: PropTypes.string.isRequired,
+  bodyFamily: PropTypes.string.isRequired,
+  bodyVariant: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = state => ({
+  headingFamily: state.headingFont.family,
+  headingVariant: state.headingFont.variant,
+  bodyFamily: state.bodyFont.family,
+  bodyVariant: state.bodyFont.variant,
+})
+
+export default connect(mapStateToProps)(IndexPage)

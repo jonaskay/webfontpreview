@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import axios from "axios"
 import { Link } from "gatsby"
 
 import SEO from "../components/seo"
 import Settings from "../components/settings"
 import previewStyles from "./preview.module.css"
 import templates from "../templates"
-import {
-  defaultHeadingFamily,
-  defaultHeadingVariants,
-  defaultBodyFamily,
-  defaultBodyVariants,
-  defaultVariant,
-} from "../variables"
 import { getFontWeight, getFontStyle } from "../utilities/font-variant-parser"
+import { selectHeadingFont, selectBodyFont } from "../actions"
 
 const HEADING = "heading"
 const BODY = "body"
 const TEMPLATE = "template"
 
-const PreviewPage = ({ location }) => {
-  const [headingFamily, setHeadingFamily] = useState(null)
-  const [headingVariant, setHeadingVariant] = useState(defaultVariant)
-  const [headingVariants, setHeadingVariants] = useState(defaultHeadingVariants)
-  const [bodyFamily, setBodyFamily] = useState(null)
-  const [bodyVariant, setBodyVariant] = useState(defaultVariant)
-  const [bodyVariants, setBodyVariants] = useState(defaultBodyVariants)
+const PreviewPage = ({
+  location,
+  onHeadingFontChange,
+  headingFamily,
+  headingVariant,
+  onBodyFontChange,
+  bodyFamily,
+  bodyVariant,
+}) => {
   const [template, setTemplate] = useState(null)
 
   useEffect(() => {
@@ -38,25 +37,34 @@ const PreviewPage = ({ location }) => {
 
     const headingParam = url.searchParams.get(HEADING)
     const bodyParam = url.searchParams.get(BODY)
-    setHeadingFamily(headingParam || defaultHeadingFamily)
-    setBodyFamily(bodyParam || defaultBodyFamily)
+    if (headingParam || bodyParam) {
+      ;(async () => {
+        const result = await axios(
+          `https://www.googleapis.com/webfonts/v1/webfonts`,
+          {
+            params: {
+              key: process.env.GATSBY_GOOGLE_API_KEY,
+            },
+          }
+        )
+
+        const {
+          data: { items },
+        } = result
+
+        if (headingParam) {
+          const variants = items.find(item => item.family === headingParam)
+            .variants
+          onHeadingFontChange(headingParam, variants)
+        }
+        if (bodyParam) {
+          const variants = items.find(item => item.family === bodyParam)
+            .variants
+          onBodyFontChange(bodyParam, variants)
+        }
+      })()
+    }
   }, [])
-
-  const handleHeadingFamilyChange = (family, variants) => {
-    setHeadingFamily(family)
-    setHeadingVariants(variants)
-  }
-
-  const handleHeadingVariantChange = variant => setHeadingVariant(variant)
-
-  const handleBodyFamilyChange = (family, variants) => {
-    setBodyFamily(family)
-    setBodyVariants(variants)
-  }
-
-  const handleBodyVariantChange = variant => {
-    setBodyVariant(variant)
-  }
 
   const handleTemplateSelect = key => setTemplate(key)
 
@@ -66,25 +74,6 @@ const PreviewPage = ({ location }) => {
   const bodyFontStyle = getFontStyle(bodyVariant)
 
   const TemplateComponent = template && templates[template].component
-
-  const options = [
-    {
-      name: "Heading",
-      value: headingFamily,
-      onChange: handleHeadingFamilyChange,
-      variant: headingVariant,
-      onVariantChange: handleHeadingVariantChange,
-      variants: headingVariants,
-    },
-    {
-      name: "Body",
-      value: bodyFamily,
-      onChange: handleBodyFamilyChange,
-      variant: bodyVariant,
-      onVariantChange: handleBodyVariantChange,
-      variants: bodyVariants,
-    },
-  ]
 
   return (
     <>
@@ -113,7 +102,6 @@ const PreviewPage = ({ location }) => {
           url={encodeURI(
             `https://webfontpreview.com/preview?${HEADING}=${headingFamily}&${BODY}=${bodyFamily}&${TEMPLATE}=${template}`
           )}
-          options={options}
           selectedTemplate={template}
           onSelectTemplate={handleTemplateSelect}
           shareable
@@ -123,4 +111,31 @@ const PreviewPage = ({ location }) => {
   )
 }
 
-export default PreviewPage
+PreviewPage.propTypes = {
+  location: PropTypes.object.isRequired,
+  onHeadingFontChange: PropTypes.func.isRequired,
+  headingFamily: PropTypes.string.isRequired,
+  headingVariant: PropTypes.string.isRequired,
+  onBodyFontChange: PropTypes.func.isRequired,
+  bodyFamily: PropTypes.string.isRequired,
+  bodyVariant: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = state => ({
+  headingFamily: state.headingFont.family,
+  headingVariant: state.headingFont.variant,
+  bodyFamily: state.bodyFont.family,
+  bodyVariant: state.bodyFont.variant,
+})
+
+const mapDispatchToProps = dispatch => ({
+  onHeadingFontChange: (family, variants) =>
+    dispatch(selectHeadingFont(family, variants)),
+  onBodyFontChange: (family, variants) =>
+    dispatch(selectBodyFont(family, variants)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PreviewPage)

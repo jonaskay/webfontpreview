@@ -1,10 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
-import FamilySelect from "./family-select"
-import VariantSelect from "./variant-select"
-import TemplateOption from "../components/template-option"
-import Share from "../components/share"
+import FontConfig from "./font-config"
+import TemplateOption from "./template-option"
+import Share from "./share"
 import Github from "./github"
 import templates from "../templates"
 import toolbarStyles from "./toolbar.module.css"
@@ -13,35 +13,18 @@ const Toolbar = ({
   show,
   shareable,
   url,
-  options,
-  selectedText,
   onSelectText,
   selectedTemplate,
   onSelectTemplate,
+  headingFamily,
+  headingVariant,
+  headingVariants,
+  onHeadingVariantSelect,
+  bodyFamily,
+  bodyVariant,
+  bodyVariants,
+  onBodyVariantSelect,
 }) => {
-  const renderOption = option => {
-    const { name } = option
-
-    return (
-      <div key={name} className="p-4">
-        <FamilySelect
-          title={name}
-          value={option.value}
-          active={name === selectedText}
-          disabled={selectedText && name !== selectedText}
-          onClick={() => onSelectText(name)}
-        />
-        <VariantSelect
-          disabled={!!selectedText}
-          selectedFamily={option.value}
-          selectedVariant={option.variant}
-          onSelect={option.onVariantChange}
-          variants={option.variants}
-        />
-      </div>
-    )
-  }
-
   const defaultClassName = `flex-none relative w-64 md:w-56 h-full border-l lg:mr-0 bg-white ${toolbarStyles.transition}`
 
   return (
@@ -52,7 +35,22 @@ const Toolbar = ({
           : `${defaultClassName} -mr-64 md:-mr-56`
       }
     >
-      {options.map(option => renderOption(option))}
+      <FontConfig
+        title="Heading"
+        family={headingFamily}
+        onFamilyClick={() => onSelectText("Heading")}
+        variant={headingVariant}
+        variants={headingVariants}
+        onVariantSelect={onHeadingVariantSelect}
+      />
+      <FontConfig
+        title="Body"
+        family={bodyFamily}
+        onFamilyClick={() => onSelectText("Body")}
+        variant={bodyVariant}
+        variants={bodyVariants}
+        onVariantSelect={onBodyVariantSelect}
+      />
       <div className="p-4">
         <h4>Template</h4>
         {Object.keys(templates).map(template => (
@@ -94,4 +92,29 @@ Toolbar.propTypes = {
   onSelectTemplate: PropTypes.func.isRequired,
 }
 
-export default Toolbar
+const mapStateToProps = state => ({
+  headingFamily: state.headingFont.family,
+  headingVariant: state.headingFont.variant,
+  headingVariants: state.headingFont.variants,
+  bodyFamily: state.bodyFont.family,
+  bodyVariant: state.bodyFont.variant,
+  bodyVariants: state.bodyFont.variants,
+})
+
+const mapDispatchToProps = dispatch => ({
+  onHeadingVariantSelect: variant =>
+    dispatch({
+      type: "SELECT_HEADING_VARIANT",
+      variant,
+    }),
+  onBodyVariantSelect: variant =>
+    dispatch({
+      type: "SELECT_BODY_VARIANT",
+      variant,
+    }),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Toolbar)

@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import Toggle from "./toggle"
 import Toolbar from "./toolbar"
 import Typography from "./typography"
 import settingsStyles from "./settings.module.css"
+import { selectSidebar } from "../actions"
 
-const { toggleEven, toggleOdd, expand } = settingsStyles
+const { toggleEven, toggleOdd } = settingsStyles
 
 const Settings = ({
   url,
@@ -14,9 +16,10 @@ const Settings = ({
   shareable,
   selectedTemplate,
   onSelectTemplate,
+  sidebar,
+  onSidebarChange,
 }) => {
   const [open, setOpen] = useState(false)
-  const [selectedText, setSelectedText] = useState(null)
   const [animation, setAnimation] = useState(null)
 
   const handleSelectText = name => {
@@ -27,24 +30,19 @@ const Settings = ({
       return toggleEven
     }
 
-    const isCurrentlySelected = name === selectedText
+    const isCurrentlySelected = name === sidebar
 
     if (isCurrentlySelected) {
-      setSelectedText(null)
+      onSidebarChange(null)
     } else {
-      if (selectedText) {
+      if (sidebar) {
         setAnimation(nextAnimation())
-      } else {
-        setAnimation(expand)
       }
-      setSelectedText(name)
+      onSidebarChange(name)
     }
   }
 
   const toggleToolbar = () => {
-    if (open) {
-      setSelectedText(null)
-    }
     setOpen(!open)
   }
 
@@ -53,7 +51,7 @@ const Settings = ({
   return (
     <div
       className={
-        selectedText
+        sidebar
           ? `${defaultClassName} ${animation}`
           : `${defaultClassName} -mr-64`
       }
@@ -64,16 +62,11 @@ const Settings = ({
         shareable={shareable}
         url={url}
         options={options}
-        selectedText={selectedText}
         onSelectText={handleSelectText}
         selectedTemplate={selectedTemplate}
         onSelectTemplate={onSelectTemplate}
       />
-      <Typography
-        options={options}
-        selected={selectedText}
-        onClose={() => setSelectedText(null)}
-      />
+      <Typography options={options} />
     </div>
   )
 }
@@ -90,10 +83,23 @@ Settings.propTypes = {
   shareable: PropTypes.bool,
   selectedTemplate: PropTypes.string,
   onSelectTemplate: PropTypes.func.isRequired,
+  sidebar: PropTypes.string.isRequired,
+  onSidebarChange: PropTypes.func.isRequired,
 }
 
 Settings.defaultProps = {
   options: [],
 }
 
-export default Settings
+const mapStateToProps = state => ({
+  sidebar: state.sidebar,
+})
+
+const mapDispatchToProps = dispatch => ({
+  onSidebarChange: sidebar => dispatch(selectSidebar(sidebar)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings)
