@@ -1,22 +1,27 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
+import { selectHeadingFont, selectBodyFont, selectSidebar } from "../actions"
 import List from "./list"
 import typogprahyStyles from "./typography.module.css"
 
-const Typography = ({ options, selected, onClose }) => {
-  const renderList = option => {
-    const handleFamilySelect = (family, variants) => {
-      option.onChange(family, variants)
-    }
-
+const Typography = ({
+  headingFont,
+  onHeadingFontSelect,
+  bodyFont,
+  onBodyFontSelect,
+  onClose,
+  sidebar,
+}) => {
+  const renderList = (title, onSelect, font) => {
     return (
       <List
-        key={option.name}
-        title={`Choose ${option.name.toLowerCase()}`}
-        disabled={selected && option.name !== selected}
-        selected={option.value}
-        onSelect={(family, variants) => handleFamilySelect(family, variants)}
+        key={title}
+        title={`Choose ${title.toLowerCase()}`}
+        disabled={sidebar && title !== sidebar}
+        selected={font.family}
+        onSelect={(family, variants) => onSelect(family, variants)}
         onClose={onClose}
       />
     )
@@ -27,12 +32,13 @@ const Typography = ({ options, selected, onClose }) => {
   return (
     <div
       className={
-        selected
+        sidebar
           ? `-ml-64 md:ml-0 ${defaultClassName}`
           : `ml-0 ${defaultClassName}`
       }
     >
-      {options.map(option => renderList(option))}
+      {renderList("Heading", onHeadingFontSelect, headingFont)}
+      {renderList("Body", onBodyFontSelect, bodyFont)}
     </div>
   )
 }
@@ -45,9 +51,36 @@ Typography.propTypes = {
       onChange: PropTypes.func.isRequired,
     })
   ).isRequired,
+  headingFont: PropTypes.shape({
+    family: PropTypes.string.isRequired,
+    variant: PropTypes.string.isRequired,
+    variants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+  bodyFont: PropTypes.shape({
+    family: PropTypes.string.isRequired,
+    variant: PropTypes.string.isRequired,
+    variants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   selected: PropTypes.string,
-  selectedVariant: PropTypes.string,
   onClose: PropTypes.func.isRequired,
+  sidebar: PropTypes.string.isRequired,
 }
 
-export default Typography
+const mapStateToProps = state => ({
+  headingFont: state.headingFont,
+  bodyFont: state.bodyFont,
+  sidebar: state.sidebar,
+})
+
+const mapDispatchToProps = dispatch => ({
+  onHeadingFontSelect: (family, variants) =>
+    dispatch(selectHeadingFont(family, variants)),
+  onBodyFontSelect: (family, variants) =>
+    dispatch(selectBodyFont(family, variants)),
+  onClose: () => dispatch(selectSidebar(null)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Typography)

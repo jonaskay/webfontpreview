@@ -3,25 +3,20 @@ import PropTypes from "prop-types"
 
 import loadWebFonts from "../utilities/load-web-fonts"
 
-const VariantSelect = ({
-  selectedFamily,
-  selectedVariant,
-  onSelect,
-  variants,
-}) => {
+const VariantSelect = ({ value, options, onSelect, familyName }) => {
   useEffect(() => {
-    loadWebFonts([`${selectedFamily}:${selectedVariant}`])
-  }, [selectedVariant])
+    loadWebFonts([`${familyName}:${value}`])
+  }, [value])
 
   const handleChange = event => onSelect(event.target.value)
 
   return (
     <>
       <span className="mr-2">Variant</span>
-      <select value={selectedVariant} onChange={handleChange}>
-        {variants.map(variant => (
-          <option key={variant} value={variant}>
-            {variant}
+      <select value={value} onChange={handleChange}>
+        {options.map(option => (
+          <option key={option} value={option}>
+            {option}
           </option>
         ))}
       </select>
@@ -30,14 +25,14 @@ const VariantSelect = ({
 }
 
 VariantSelect.propTypes = {
-  selectedFamily: PropTypes.string,
-  selectedVariant: PropTypes.string,
+  value: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func,
-  variants: PropTypes.arrayOf(PropTypes.string),
+  familyName: PropTypes.string,
 }
 
 VariantSelect.defaultProps = {
-  variants: [],
+  options: [],
 }
 
 export default VariantSelect
