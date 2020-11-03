@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "jonaskay <jonaskay@iki.fi>",
   "dependencies": {
-    "@emotion/core": "^10.0.22",
+    "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.23",
     "axios": "^0.19.0",
     "gatsby": "^2.13.3",
