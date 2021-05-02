@@ -5,8 +5,8 @@ import loadWebFonts from "../utilities/load-web-fonts"
 
 const VariantSelect = ({ value, options, onSelect, familyName }) => {
   useEffect(() => {
-    loadWebFonts([`${familyName}:${value}`])
-  }, [value])
+    loadWebFonts([`${familyName ? familyName : "Roboto"}:${value}`])
+  }, [familyName, value])
 
   const handleChange = event => onSelect(event.target.value)
 
@@ -28,7 +28,7 @@ VariantSelect.propTypes = {
   value: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func,
-  familyName: PropTypes.string,
+  familyName: PropTypes.string.isRequired,
 }
 
 VariantSelect.defaultProps = {
