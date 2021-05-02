@@ -26,6 +26,7 @@ const FontConfig = ({
       value={variant}
       options={variants}
       onSelect={onVariantSelect}
+      familyName={family}
       disabled={!!sidebar}
     />
   </div>

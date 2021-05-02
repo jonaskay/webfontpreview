@@ -10,7 +10,12 @@ const FontTools = ({ title, family, variant, variants, sidebar }) => (
       active={title === sidebar}
       disabled={sidebar && title !== sidebar}
     />
-    <VariantSelect value={variant} options={variants} disabled={!!sidebar} />
+    <VariantSelect
+      value={variant}
+      options={variants}
+      familyName={family}
+      disabled={!!sidebar}
+    />
   </div>
 )
 
